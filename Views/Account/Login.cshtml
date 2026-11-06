@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login - Odonto+</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body class="login-body">
+
+    <div class="login-container">
+        <div class="login-logo">Odonto+</div>
+
+        <h1>Bem-vindo!</h1>
+        <p>Acesse o sistema da clínica</p>
+
+        <form asp-controller="Account" asp-action="Login" method="post">
+            @Html.AntiForgeryToken()
+
+            <label>Usuário</label>
+            <input type="text" name="login"
+                   placeholder="Digite seu usuário" required />
+
+            <label>Senha</label>
+            <input type="password" name="senha"
+                   placeholder="Digite sua senha" required />
+
+            @if (ViewBag.Erro != null)
+            {
+                <p class="error-message">@ViewBag.Erro</p>
+            }
+
+            <button type="submit">Entrar no sistema</button>
+        </form>
+    </div>
+
+</body>
+</html>

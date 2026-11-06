@@ -1,0 +1,50 @@
+﻿@model ClinicaOdontologica.Models.Agendamento
+
+@{
+    ViewData["Title"] = "Novo agendamento";
+}
+
+<div class="container mt-4">
+    <h2>Novo agendamento</h2>
+
+    <form asp-action="Create" method="post">
+        @Html.AntiForgeryToken()
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="mb-3">
+            <label asp-for="PacienteId" class="form-label">Paciente</label>
+            <select asp-for="PacienteId"
+                    asp-items="ViewBag.Pacientes"
+                    class="form-select">
+                <option value="">Selecione um paciente</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="ProcedimentoId" class="form-label">Procedimento</label>
+            <select asp-for="ProcedimentoId"
+                    asp-items="ViewBag.Procedimentos"
+                    class="form-select">
+                <option value="">Selecione um procedimento</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="DataAgendamento" class="form-label">
+                Data e horário
+            </label>
+            <input asp-for="DataAgendamento"
+                   type="datetime-local"
+                   class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-success">
+            Salvar agendamento
+        </button>
+
+        <a asp-action="Index" class="btn btn-secondary">
+            Voltar
+        </a>
+    </form>
+</div>

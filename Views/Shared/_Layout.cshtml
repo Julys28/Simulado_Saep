@@ -1,0 +1,39 @@
+﻿
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - Clínica Odontológica</title>
+
+    <link rel="stylesheet"
+          href="~/css/site.css"
+          asp-append-version="true" />
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Odonto+</h2>
+        <p>Clínica Odontológica</p>
+
+        <nav>
+            <a asp-controller="Home" asp-action="Index">Início</a>
+            <a asp-controller="Pacientes" asp-action="Index">Pacientes</a>
+            <a asp-controller="Procedimentos" asp-action="Index">Procedimentos</a>
+            <a asp-controller="Agendamentos" asp-action="Index">Agendamentos</a>
+            <a asp-controller="Account" asp-action="Logout">Sair</a>
+        </nav>
+    </div>
+
+    <main class="main-content">
+        <header class="topbar">
+            <span>Sistema de Gestão Odontológica</span>
+        </header>
+
+        <section class="page-content">
+            @RenderBody()
+        </section>
+    </main>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

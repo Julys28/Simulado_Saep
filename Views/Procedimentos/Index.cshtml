@@ -1,0 +1,60 @@
+﻿@model IEnumerable<ClinicaOdontologica.Models.Procedimento>
+
+@{
+    ViewData["Title"] = "Procedimentos";
+}
+
+<div class="container mt-4">
+    <h2>Procedimentos cadastrados</h2>
+
+    <a asp-action="Create" class="btn btn-primary mb-3">
+        Novo procedimento
+    </a>
+
+    @if (TempData["Erro"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["Erro"]
+        </div>
+    }
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var procedimento in Model)
+            {
+                <tr>
+                    <td>@procedimento.Nome</td>
+                    <td>@procedimento.Descricao</td>
+                    <td>@procedimento.Valor.ToString("C")</td>
+                    <td>
+                        <a asp-action="Edit"
+                           asp-route-id="@procedimento.Id"
+                           class="btn btn-warning btn-sm">
+                            Editar
+                        </a>
+
+                        <form asp-action="Delete"
+                              asp-route-id="@procedimento.Id"
+                              method="post"
+                              style="display:inline"
+                              onsubmit="return confirm('Deseja excluir este procedimento?');">
+                            @Html.AntiForgeryToken()
+                            <button type="submit"
+                                    class="btn btn-danger btn-sm">
+                                Excluir
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

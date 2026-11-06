@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ClinicaOdontologica.Models.Agendamento>
+
+@{
+    ViewData["Title"] = "Agendamentos";
+}
+
+<div class="container mt-4">
+    <h2>Agendamentos</h2>
+
+    <a asp-action="Create" class="btn btn-primary mb-3">
+        Novo agendamento
+    </a>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Paciente</th>
+                <th>Procedimento</th>
+                <th>Data e horário</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var agendamento in Model)
+            {
+                <tr>
+                    <td>@agendamento.Paciente?.Nome</td>
+                    <td>@agendamento.Procedimento?.Nome</td>
+                    <td>@agendamento.DataAgendamento.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>
+                        <a asp-action="Edit"
+                           asp-route-id="@agendamento.Id"
+                           class="btn btn-warning btn-sm">
+                            Editar
+                        </a>
+
+                        <form asp-action="Delete"
+                              asp-route-id="@agendamento.Id"
+                              method="post"
+                              style="display:inline"
+                              onsubmit="return confirm('Deseja excluir este agendamento?');">
+                            @Html.AntiForgeryToken()
+                            <button type="submit"
+                                    class="btn btn-danger btn-sm">
+                                Excluir
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

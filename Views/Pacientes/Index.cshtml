@@ -1,0 +1,73 @@
+﻿@model IEnumerable<ClinicaOdontologica.Models.Paciente>
+
+@{
+    ViewData["Title"] = "Pacientes";
+}
+
+<div class="container mt-4">
+    <h2>Pacientes cadastrados</h2>
+
+    <a asp-action="Create" class="btn btn-primary mb-3">
+        Novo paciente
+    </a>
+
+    <form asp-action="Index" method="get" class="mb-3">
+        <div class="input-group">
+            <input type="text" name="busca"
+                   class="form-control"
+                   placeholder="Pesquisar por nome ou telefone"
+                   value="@Context.Request.Query["busca"]" />
+
+            <button type="submit" class="btn btn-secondary">
+                Pesquisar
+            </button>
+        </div>
+    </form>
+
+    @if (TempData["Erro"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["Erro"]
+        </div>
+    }
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Telefone</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var paciente in Model)
+            {
+                <tr>
+                    <td>@paciente.Nome</td>
+                    <td>@paciente.Cpf</td>
+                    <td>@paciente.Telefone</td>
+                    <td>
+                        <a asp-action="Edit"
+                           asp-route-id="@paciente.Id"
+                           class="btn btn-warning btn-sm">
+                            Editar
+                        </a>
+
+                        <form asp-action="Delete"
+                              asp-route-id="@paciente.Id"
+                              method="post"
+                              style="display:inline"
+                              onsubmit="return confirm('Deseja excluir este paciente?');">
+                            @Html.AntiForgeryToken()
+                            <button type="submit"
+                                    class="btn btn-danger btn-sm">
+                                Excluir
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
